@@ -26,23 +26,11 @@ import cz.tefek.pluto.io.logger.SmartSeverity;
 @ThreadSafe
 public class AudioEngine
 {
-    private static ThreadLocal<Long> device = new ThreadLocal<>() {
-        @Override
-        protected Long initialValue()
-        {
-            return MemoryUtil.NULL;
-        }
-    };
+    private static final ThreadLocal<Long> device = ThreadLocal.withInitial(() -> MemoryUtil.NULL);
 
-    private static ThreadLocal<Long> context = new ThreadLocal<>() {
-        @Override
-        protected Long initialValue()
-        {
-            return MemoryUtil.NULL;
-        }
-    };
+    private static final ThreadLocal<Long> context = ThreadLocal.withInitial(() -> MemoryUtil.NULL);
 
-    private static ThreadLocal<ALCapabilities> capabilities = new ThreadLocal<>();
+    private static final ThreadLocal<ALCapabilities> capabilities = new ThreadLocal<>();
 
     public static void initialize()
     {
